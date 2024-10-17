@@ -88,10 +88,11 @@ def download_and_save_data(symbol, interval='15m'):
 
 
 if __name__ == "__main__":
+    # Check the number of CPUs available
+    print(f"Number of CPUs: {multiprocessing.cpu_count()}")
     num_processes = min(cpu_count() - 1, len(assets))
     with Pool(num_processes) as pool:
         for _ in tqdm(pool.imap_unordered(download_and_save_data, assets), total=len(assets)):
             pass
 
-    # Check the number of CPUs available
-    print(f"Number of CPUs: {multiprocessing.cpu_count()}")
+    
